@@ -12,7 +12,7 @@ const TabView = () => {
           className={`tab ${tabActive === 0 ? "tab-active font-bold" : ""}`}
           onClick={() => setTabActive(0)}
         >
-          1
+          EPQ-R(S)
         </a>
         <a
           role="tab"
