@@ -1,9 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { flagsEPQR, stensWomenEPQR } from "../lib/flags";
+import Results from "./Results";
 
 const EPQR: React.FC = () => {
-  const [age, setAge] = useState(35)
-  const [sex, setSex] = useState('K')
+  const [age, setAge] = useState(35);
+  const [sex, setSex] = useState("K");
+  const [matches, setMatches] = useState({ N: 0, E: 0, P: 0, K: 0 });
+  const [stens, setStens] = useState({ N: 0, E: 0, P: 0, K: 0 });
   const [inputValues, setInputValues] = useState<{ [key: number]: string }>({});
   const [invalidInputs, setInvalidInputs] = useState<{
     [key: number]: boolean;
@@ -47,14 +50,23 @@ const EPQR: React.FC = () => {
   const handleClearInputs = () => {
     setInputValues({});
     setInvalidInputs({});
+    setStens({ N: 0, E: 0, P: 0, K: 0 });
+    setMatches({ N: 0, E: 0, P: 0, K: 0 });
     inputRefs.current.forEach((input) => {
       if (input) input.value = "";
     });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  useEffect(() => {
+    if (Object.keys(inputValues).length === 48) {
+      calculateMatches();
+      calculateStens();
+    }
+  }, [inputValues]);
+
   const calculateMatches = () => {
-    let matches = { N: 0, E: 0, P: 0, K: 0 };
+    let tempMatches = { N: 0, E: 0, P: 0, K: 0 };
     allQuestions.forEach((question) => {
       const value = inputValues[question];
       if (value) {
@@ -63,7 +75,7 @@ const EPQR: React.FC = () => {
             (flagsEPQR.N[question] && value === "t") ||
             (!flagsEPQR.N[question] && value === "n")
           ) {
-            matches.N++;
+            tempMatches.N++;
           }
         }
         if (flagsEPQR.E[question] !== undefined) {
@@ -71,7 +83,7 @@ const EPQR: React.FC = () => {
             (flagsEPQR.E[question] && value === "t") ||
             (!flagsEPQR.E[question] && value === "n")
           ) {
-            matches.E++;
+            tempMatches.E++;
           }
         }
         if (flagsEPQR.P[question] !== undefined) {
@@ -79,7 +91,7 @@ const EPQR: React.FC = () => {
             (flagsEPQR.P[question] && value === "t") ||
             (!flagsEPQR.P[question] && value === "n")
           ) {
-            matches.P++;
+            tempMatches.P++;
           }
         }
         if (flagsEPQR.K[question] !== undefined) {
@@ -87,39 +99,36 @@ const EPQR: React.FC = () => {
             (flagsEPQR.K[question] && value === "t") ||
             (!flagsEPQR.K[question] && value === "n")
           ) {
-            matches.K++;
+            tempMatches.K++;
           }
         }
       }
     });
-    return matches;
+    setMatches(tempMatches);
   };
 
-  const matches = calculateMatches();
   const hasInvalidInputs = Object.values(invalidInputs).some(
     (isInvalid) => isInvalid
   );
 
-  const calculateSten = () => {
-    let stens = { N: 0, E: 0, P: 0, K: 0 };
+  const calculateStens = () => {
+    let tempStens = { N: 0, E: 0, P: 0, K: 0 };
     stensWomenEPQR.map((item, index) => {
-      if (age < 31 ) {
-        if (matches.N === index) stens.N = item.N.below
-        if (matches.E === index) stens.E = item.E.below
-        if (matches.P === index) stens.P = item.P.below
-        if (matches.K === index) stens.K = item.K.below
+      if (age < 31) {
+        if (matches.N === index) tempStens.N = item.N.below;
+        if (matches.E === index) tempStens.E = item.E.below;
+        if (matches.P === index) tempStens.P = item.P.below;
+        if (matches.K === index) tempStens.K = item.K.below;
       } else {
-        if (matches.N === index) stens.N = item.N.above
-        if (matches.E === index) stens.E = item.E.above
-        if (matches.P === index) stens.P = item.P.above
-        if (matches.K === index) stens.K = item.K.above
+        if (matches.N === index) tempStens.N = item.N.above;
+        if (matches.E === index) tempStens.E = item.E.above;
+        if (matches.P === index) tempStens.P = item.P.above;
+        if (matches.K === index) tempStens.K = item.K.above;
       }
     });
 
-    return stens;
+    return setStens(tempStens);
   };
-
-  const calculatedStens = calculateSten();
 
   return (
     <>
@@ -174,28 +183,14 @@ const EPQR: React.FC = () => {
             </div>
           </div>
           <div>
-            <div className="mt-4">
-              <strong>Matches for N: {matches.N}</strong>
-              <strong>Sten for N: {calculatedStens.N}</strong>
-            </div>
-            <div>
-              <strong>Matches for E: {matches.E}</strong>
-              <strong>Sten for E: {calculatedStens.E}</strong>
-            </div>
-            <div>
-              <strong>Matches for P: {matches.P}</strong>
-              <strong>Sten for P: {calculatedStens.P}</strong>
-            </div>
-            <div>
-              <strong>Matches for K: {matches.K}</strong>
-              <strong>Sten for K: {calculatedStens.K}</strong>
-            </div>
-            <div>
-              {hasInvalidInputs && (
-                <div>Formularz zawiera nieprawidłowe wartości</div>
-              )}
-            </div>
-            <button disabled={hasInvalidInputs} onClick={handleClearInputs} className="btn btn-primary">
+            {hasInvalidInputs ? (
+              <div className="text-red-500 py-6 font-bold text-xl">
+                Formularz zawiera nieprawidłowe wartości
+              </div>
+            ) : (
+              <Results matches={matches} stens={stens} />
+            )}
+            <button onClick={handleClearInputs} className="btn btn-primary">
               Wyczyść formularz
             </button>
           </div>

@@ -1,8 +1,13 @@
-interface Flags {
+export interface Flags {
   [key: number]: boolean | null;
 }
 
-interface FlagsObject {
+export type Result = {
+  [key: string]: number
+}
+
+
+export interface FlagsObject {
   N: Flags;
   E: Flags;
   P: Flags;
