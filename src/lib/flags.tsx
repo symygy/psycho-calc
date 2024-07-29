@@ -14,6 +14,18 @@ export interface FlagsObject {
   K: Flags;
 }
 
+export type StenObject = {
+  below: number,
+  above :number
+}
+
+export type StensObject = {
+  N: StenObject,
+  E: StenObject,
+  P: StenObject,
+  K: StenObject
+}
+
 
 export const stensWomenEPQR = [
   {
