@@ -1,8 +1,4 @@
-import React, {
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { flagsEPQR, stensWomenEPQR } from "../lib/flags";
 import Results from "./Results";
 import TableStens from "./TableStens";
@@ -80,7 +76,7 @@ const EPQR: React.FC = () => {
       calculateMatches();
       calculateStens();
     }
-  }, [inputValues]);
+  }, [inputValues, age, sex]);
 
   const calculateMatches = () => {
     let tempMatches = { N: 0, E: 0, P: 0, K: 0 };
@@ -150,46 +146,46 @@ const EPQR: React.FC = () => {
   return (
     <>
       <div className="flex justify-between">
-        <div>
-          <div className="pb-8 text-center">
-            <div className="join">
-              <div>
+        <div className="flex flex-col gap-4">
+          <div className="bg-white sticky top-0 z-10 flex justify-center">
+            <div className="pb-8">
+              <div className="join">
                 <div>
-                  <input
-                    className="input input-bordered join-item"
-                    placeholder="Wiek"
-                    onChange={handleAgeChange}
-                    value={age}
-                    maxLength={2}
-                  />
+                  <div>
+                    <input
+                      className="input input-bordered join-item"
+                      placeholder="Wiek"
+                      onChange={handleAgeChange}
+                      value={age}
+                      maxLength={2}
+                    />
+                  </div>
                 </div>
+                <select
+                  value={sex}
+                  onChange={handleSexChange}
+                  className="select select-bordered join-item"
+                >
+                  <option>Mężczyzna</option>
+                  <option>Kobieta</option>
+                </select>
               </div>
-              <select
-                value={sex}
-                onChange={handleSexChange}
-                className="select select-bordered join-item"
-              >
-                <option>Mężczyzna</option>
-                <option>Kobieta</option>
-              </select>
             </div>
           </div>
-          <div className="flex gap-6">
-            <div className="">
-              <TableQuestions
-                questions={allQuestions}
-                flags={flagsEPQR}
-                inputRefs={inputRefs}
-                invalidInputs={invalidInputs}
-                handleInputChange={handleInputChange}
-                renderFlagValue={renderFlagValue}
-              />
-            </div>
-          </div>
-          <div>
-            {hasInvalidInputs ? (
-              <div className="text-red-500 py-6 font-bold text-xl">
-                Formularz zawiera nieprawidłowe wartości
+          <TableQuestions
+            questions={allQuestions}
+            flags={flagsEPQR}
+            inputRefs={inputRefs}
+            invalidInputs={invalidInputs}
+            handleInputChange={handleInputChange}
+            renderFlagValue={renderFlagValue}
+          />
+
+          <div className="w-[600px]">
+            {hasInvalidInputs || age.length < 2 ? (
+              <div className="text-red-500 py-6 font-bold text-xl text-center">
+                Formularz zawiera nieprawidłowe wartości lub podany wiek jest
+                nieprawidłowy
               </div>
             ) : (
               <Results matches={matches} stens={stens} />
