@@ -1,6 +1,5 @@
 {
   "name": "psycho",
-  "homepage": "http://symygy.github.io/psycho-calc",
   "private": true,
   "version": "0.0.0",
   "type": "module",

@@ -31,7 +31,7 @@ const TableQuestions = ({
           <th>E</th>
           <th>P</th>
           <th>K</th>
-          <th>Pytania</th>
+          <th>Odpowiedzi</th>
         </tr>
       </thead>
       <tbody>
