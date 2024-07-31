@@ -1,17 +1,23 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { flagsEPQR, stensWomenEPQR } from "../lib/flags";
 import Results from "./Results";
 import TableStens from "./TableStens";
+import TableQuestions from "./TableQuestions";
 
 const EPQR: React.FC = () => {
-  const [age, setAge] = useState(35);
-  const [sex, setSex] = useState("K");
+  const [age, setAge] = useState("");
+  const [sex, setSex] = useState("Mężczyzna");
   const [matches, setMatches] = useState({ N: 0, E: 0, P: 0, K: 0 });
   const [stens, setStens] = useState({ N: 0, E: 0, P: 0, K: 0 });
   const [inputValues, setInputValues] = useState<{ [key: number]: string }>({});
   const [invalidInputs, setInvalidInputs] = useState<{
     [key: number]: boolean;
   }>({});
+
   const renderFlagValue = (value: boolean | null): string => {
     if (value === null) return "-";
     if (value === true) return "TAK";
@@ -25,7 +31,15 @@ const EPQR: React.FC = () => {
     )
   ).sort((a, b) => a - b);
 
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const inputRefs = useRef<HTMLInputElement[]>([]);
+
+  const handleAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAge(e.target.value);
+  };
+
+  const handleSexChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSex(e.target.value);
+  };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -49,6 +63,8 @@ const EPQR: React.FC = () => {
   };
 
   const handleClearInputs = () => {
+    setAge("");
+    setSex("Mężczyzna");
     setInputValues({});
     setInvalidInputs({});
     setStens({ N: 0, E: 0, P: 0, K: 0 });
@@ -115,7 +131,7 @@ const EPQR: React.FC = () => {
   const calculateStens = () => {
     let tempStens = { N: 0, E: 0, P: 0, K: 0 };
     stensWomenEPQR.map((item, index) => {
-      if (age < 31) {
+      if (Number(age) < 31) {
         if (matches.N === index) tempStens.N = item.N.below;
         if (matches.E === index) tempStens.E = item.E.below;
         if (matches.P === index) tempStens.P = item.P.below;
@@ -135,52 +151,39 @@ const EPQR: React.FC = () => {
     <>
       <div className="flex justify-between">
         <div>
+          <div className="pb-8 text-center">
+            <div className="join">
+              <div>
+                <div>
+                  <input
+                    className="input input-bordered join-item"
+                    placeholder="Wiek"
+                    onChange={handleAgeChange}
+                    value={age}
+                    maxLength={2}
+                  />
+                </div>
+              </div>
+              <select
+                value={sex}
+                onChange={handleSexChange}
+                className="select select-bordered join-item"
+              >
+                <option>Mężczyzna</option>
+                <option>Kobieta</option>
+              </select>
+            </div>
+          </div>
           <div className="flex gap-6">
             <div className="">
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>N</th>
-                    <th>E</th>
-                    <th>P</th>
-                    <th>K</th>
-                    <th>Pytania</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {allQuestions.map((question, index) => (
-                    <tr key={question}>
-                      <th>{question}</th>
-                      <td>{renderFlagValue(flagsEPQR.N[question] ?? null)}</td>
-                      <td>{renderFlagValue(flagsEPQR.E[question] ?? null)}</td>
-                      <td>{renderFlagValue(flagsEPQR.P[question] ?? null)}</td>
-                      <td>{renderFlagValue(flagsEPQR.K[question] ?? null)}</td>
-                      {
-                        <td>
-                          <label
-                            key={question}
-                            className="input input-bordered flex items-center gap-1 input-sm"
-                          >
-                            <input
-                              type="text"
-                              className={`grow ${
-                                invalidInputs[question] ? "text-red-500" : ""
-                              }`}
-                              placeholder=""
-                              maxLength={1}
-                              ref={(el) => (inputRefs.current[index] = el)}
-                              onChange={(e) =>
-                                handleInputChange(e, index, question)
-                              }
-                            />
-                          </label>
-                        </td>
-                      }
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <TableQuestions
+                questions={allQuestions}
+                flags={flagsEPQR}
+                inputRefs={inputRefs}
+                invalidInputs={invalidInputs}
+                handleInputChange={handleInputChange}
+                renderFlagValue={renderFlagValue}
+              />
             </div>
           </div>
           <div>
@@ -202,7 +205,7 @@ const EPQR: React.FC = () => {
             <TableStens data={stensWomenEPQR} />
           </div>
           <div>
-            STENY - mężczyźni
+            STENY - mężczyźni - zdefiniiować!!!!
             <TableStens data={stensWomenEPQR} />
           </div>
         </div>
