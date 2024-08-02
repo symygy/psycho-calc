@@ -6,12 +6,12 @@ type Props = {
 };
 
 const Results = ({ matches, stens }: Props) => {
-  const statClass = "stat place-items-center"
+  const statClass = "stat place-items-center w-[150px]";
 
   return (
     <>
       <div className="flex flex-col gap-2 py-6">
-        <div className="stats shadow">
+        <div className="stats shadow-xl">
           <div className={statClass}>
             <div className="stat-title">N</div>
             <div className="stat-value">{matches.N}</div>
@@ -29,7 +29,7 @@ const Results = ({ matches, stens }: Props) => {
             <div className="stat-value">{matches.K}</div>
           </div>
         </div>
-        <div className="stats shadow">
+        <div className="stats shadow-xl">
           <div className={statClass}>
             <div className="stat-title">N</div>
             <div className="stat-value">{stens.N}</div>

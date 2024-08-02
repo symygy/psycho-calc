@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { flagsEPQR, stensWomenEPQR } from "../lib/flags";
+import { flagsEPQR, stensWomenEPQR, stensMenEPQR } from "../lib/flags";
 import Results from "./Results";
 import TableStens from "./TableStens";
 import TableQuestions from "./TableQuestions";
@@ -126,7 +126,19 @@ const EPQR: React.FC = () => {
 
   const calculateStens = () => {
     let tempStens = { N: 0, E: 0, P: 0, K: 0 };
-    stensWomenEPQR.map((item, index) => {
+    let tempSex = []
+
+    if (sex === "Mężczyzna") {
+      tempSex = stensMenEPQR
+    } else {
+      tempSex = stensWomenEPQR;
+    }
+
+    if (tempSex.length === 0) {
+      console.error("Lista ze stenami pusta")
+    }
+    
+    tempSex.map((item, index) => {
       if (Number(age) < 31) {
         if (matches.N === index) tempStens.N = item.N.below;
         if (matches.E === index) tempStens.E = item.E.below;
@@ -197,11 +209,11 @@ const EPQR: React.FC = () => {
         </div>
         <div className="flex flex-col gap-8">
           <div>
-            STENY - kobiety
-            <TableStens data={stensWomenEPQR} />
+            STENY - mężczyźni 
+            <TableStens data={stensMenEPQR} />
           </div>
           <div>
-            STENY - mężczyźni - zdefiniiować!!!!
+            STENY - kobiety
             <TableStens data={stensWomenEPQR} />
           </div>
         </div>

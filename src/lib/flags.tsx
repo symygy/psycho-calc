@@ -26,6 +26,86 @@ export type StensObject = {
   K: StenObject
 }
 
+export const stensMenEPQR = [
+  {
+    N: { below: 2, above: 2 },
+    E: { below: 1, above: 1 },
+    P: { below: 1, above: 1 },
+    K: { below: 1, above: 1 },
+  },
+  {
+    N: { below: 3, above: 3 },
+    E: { below: 2, above: 2 },
+    P: { below: 2, above: 3 },
+    K: { below: 2, above: 2 },
+  },
+  {
+    N: { below: 4, above: 4 },
+    E: { below: 2, above: 2 },
+    P: { below: 3, above: 4 },
+    K: { below: 3, above: 3 },
+  },
+  {
+    N: { below: 5, above: 5 },
+    E: { below: 2, above: 3 },
+    P: { below: 4, above: 5 },
+    K: { below: 4, above: 4 },
+  },
+  {
+    N: { below: 5, above: 5 },
+    E: { below: 3, above: 3 },
+    P: { below: 5, above: 6 },
+    K: { below: 5, above: 4 },
+  },
+  {
+    N: { below: 6, above: 6 },
+    E: { below: 3, above: 3 },
+    P: { below: 6, above: 7 },
+    K: { below: 6, above: 5 },
+  },
+  {
+    N: { below: 7, above: 6 },
+    E: { below: 3, above: 4 },
+    P: { below: 7, above: 8 },
+    K: { below: 6, above: 5 },
+  },
+  {
+    N: { below: 7, above: 7 },
+    E: { below: 4, above: 4 },
+    P: { below: 8, above: 9 },
+    K: { below: 7, above: 6 },
+  },
+  {
+    N: { below: 7, above: 7 },
+    E: { below: 5, above: 5 },
+    P: { below: 9, above: 9 },
+    K: { below: 8, above: 6 },
+  },
+  {
+    N: { below: 8, above: 8 },
+    E: { below: 5, above: 6 },
+    P: { below: 10, above: 10 },
+    K: { below: 8, above: 7 },
+  },
+  {
+    N: { below: 8, above: 8 },
+    E: { below: 6, above: 7 },
+    P: { below: 10, above: 10 },
+    K: { below: 9, above: 8 },
+  },
+  {
+    N: { below: 9, above: 9 },
+    E: { below: 7, above: 8 },
+    P: { below: 10, above: 10 },
+    K: { below: 10, above: 9 },
+  },
+  {
+    N: { below: 10, above: 10 },
+    E: { below: 10, above: 10 },
+    P: { below: 10, above: 10 },
+    K: { below: 10, above: 10 },
+  },
+];
 
 export const stensWomenEPQR = [
   {
@@ -150,7 +230,6 @@ export const flagsEPQR: FlagsObject = {
     35: false,
     39: true,
     43: false,
-    48: true,
   },
   K: {
     4: true,
