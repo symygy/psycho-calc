@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { flagsEPQR, stensWomenEPQR, stensMenEPQR } from "../lib/flags";
-import Results from "./Results";
-import TableStens from "./TableStens";
+import EpqrResults from "./EpqrResults";
+import EpqrTableStens from "./EpqrTableStens";
 import TableQuestions from "./TableQuestions";
 
-const EPQR: React.FC = () => {
+const EpqrTab: React.FC = () => {
   const [age, setAge] = useState("");
   const [sex, setSex] = useState("Mężczyzna");
   const [matches, setMatches] = useState({ N: 0, E: 0, P: 0, K: 0 });
@@ -144,7 +144,6 @@ const EPQR: React.FC = () => {
     }
 
     tempSex.map((item, index) => {
-      console.log(matches);
       if (Number(age) < 31) {
         if (matches.N === index) tempStens.N = item.N.below;
         if (matches.E === index) tempStens.E = item.E.below;
@@ -205,7 +204,7 @@ const EPQR: React.FC = () => {
                 nieprawidłowy
               </div>
             ) : (
-              <Results matches={matches} stens={stens} />
+              <EpqrResults matches={matches} stens={stens} />
             )}
             <button onClick={handleClearInputs} className="btn btn-accent">
               Wyczyść formularz
@@ -214,12 +213,12 @@ const EPQR: React.FC = () => {
         </div>
         <div className="flex flex-col gap-8">
           <div>
-            STENY - mężczyźni
-            <TableStens data={stensMenEPQR} />
+            Normy stenowe - mężczyźni
+            <EpqrTableStens data={stensMenEPQR} />
           </div>
           <div>
-            STENY - kobiety
-            <TableStens data={stensWomenEPQR} />
+            Normy stenowe - kobiety
+            <EpqrTableStens data={stensWomenEPQR} />
           </div>
         </div>
       </div>
@@ -227,4 +226,4 @@ const EPQR: React.FC = () => {
   );
 };
 
-export default EPQR;
+export default EpqrTab;

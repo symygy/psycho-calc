@@ -1,5 +1,6 @@
 import { useState } from "react";
-import EPQR from "./EPQR";
+import EpqrTab from "./EqprTab";
+import CissTab from "./CissTab";
 
 const TabView = () => {
   const [tabActive, setTabActive] = useState(0);
@@ -19,23 +20,27 @@ const TabView = () => {
           className={`tab ${tabActive === 1 ? "tab-active font-bold" : ""}`}
           onClick={() => setTabActive(1)}
         >
-          EPQ-R(long?)
+          CISS
         </a>
         <a
           role="tab"
           className={`tab ${tabActive === 2 ? "tab-active font-bold" : ""}`}
           onClick={() => setTabActive(2)}
         >
-          CISS
+          EPQ-R(long?)
         </a>
         <div className="p-10">
           {tabActive === 0 && (
             <div>
-              <EPQR />
+              <EpqrTab />
             </div>
           )}
-          {tabActive === 1 && <div>Content for 2+</div>}
-          {tabActive === 2 && <div>Content for 3</div>}
+          {tabActive === 1 && (
+            <div>
+              <CissTab />
+            </div>
+          )}
+          {tabActive === 2 && <div>xxxx</div>}
         </div>
       </div>
     </div>

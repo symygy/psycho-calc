@@ -4,7 +4,7 @@ type Props = {
   data: StensObject[];
 };
 
-const TableStens = ({ data }: Props) => {
+const EpqrTableStens = ({ data }: Props) => {
   return (
     <table className="table table-xs mt-4">
       <thead>
@@ -72,4 +72,4 @@ const TableStens = ({ data }: Props) => {
   );
 };
 
-export default TableStens;
+export default EpqrTableStens;

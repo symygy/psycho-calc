@@ -5,7 +5,7 @@ type Props = {
   stens: Result;
 };
 
-const Results = ({ matches, stens }: Props) => {
+const EpqrResults = ({ matches, stens }: Props) => {
   const statClass = "stat place-items-center w-[150px]";
 
   return (
@@ -52,4 +52,4 @@ const Results = ({ matches, stens }: Props) => {
   );
 };
 
-export default Results;
+export default EpqrResults;
