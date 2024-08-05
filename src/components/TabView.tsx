@@ -19,14 +19,14 @@ const TabView = () => {
           className={`tab ${tabActive === 1 ? "tab-active font-bold" : ""}`}
           onClick={() => setTabActive(1)}
         >
-          2+
+          EPQ-R(long?)
         </a>
         <a
           role="tab"
           className={`tab ${tabActive === 2 ? "tab-active font-bold" : ""}`}
           onClick={() => setTabActive(2)}
         >
-          3
+          CISS
         </a>
         <div className="p-10">
           {tabActive === 0 && (

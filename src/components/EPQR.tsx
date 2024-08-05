@@ -74,9 +74,14 @@ const EPQR: React.FC = () => {
   useEffect(() => {
     if (Object.keys(inputValues).length === 48) {
       calculateMatches();
-      calculateStens();
     }
   }, [inputValues, age, sex]);
+
+  useEffect(() => {
+    if (Object.keys(inputValues).length === 48) {
+      calculateStens();
+    }
+  }, [matches]);
 
   const calculateMatches = () => {
     let tempMatches = { N: 0, E: 0, P: 0, K: 0 };
@@ -126,19 +131,20 @@ const EPQR: React.FC = () => {
 
   const calculateStens = () => {
     let tempStens = { N: 0, E: 0, P: 0, K: 0 };
-    let tempSex = []
+    let tempSex = [];
 
     if (sex === "Mężczyzna") {
-      tempSex = stensMenEPQR
+      tempSex = stensMenEPQR;
     } else {
       tempSex = stensWomenEPQR;
     }
 
     if (tempSex.length === 0) {
-      console.error("Lista ze stenami pusta")
+      console.error("Lista ze stenami pusta");
     }
-    
+
     tempSex.map((item, index) => {
+      console.log(matches);
       if (Number(age) < 31) {
         if (matches.N === index) tempStens.N = item.N.below;
         if (matches.E === index) tempStens.E = item.E.below;
@@ -151,8 +157,7 @@ const EPQR: React.FC = () => {
         if (matches.K === index) tempStens.K = item.K.above;
       }
     });
-
-    return setStens(tempStens);
+    setStens(tempStens);
   };
 
   return (
@@ -209,7 +214,7 @@ const EPQR: React.FC = () => {
         </div>
         <div className="flex flex-col gap-8">
           <div>
-            STENY - mężczyźni 
+            STENY - mężczyźni
             <TableStens data={stensMenEPQR} />
           </div>
           <div>
