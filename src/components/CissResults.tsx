@@ -6,7 +6,7 @@ type Props = {
 };
 
 const CissResults = ({ matches, stens }: Props) => {
-  const statClass = "stat place-items-center w-[150px]";
+  const statClass = "stat place-items-center w-[125px]";
 
   return (
     <>

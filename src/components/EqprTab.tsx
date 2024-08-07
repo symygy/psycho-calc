@@ -161,7 +161,7 @@ const EpqrTab: React.FC = () => {
 
   return (
     <>
-      <div className="flex justify-between">
+      <div className="flex justify-around flex-wrap ">
         <div className="flex flex-col gap-4">
           <div className="bg-white sticky top-0 z-10 flex justify-center">
             <div className="pb-8">
@@ -188,18 +188,20 @@ const EpqrTab: React.FC = () => {
               </div>
             </div>
           </div>
-          <TableQuestions
-            questions={allQuestions}
-            flags={flagsEPQR}
-            inputRefs={inputRefs}
-            invalidInputs={invalidInputs}
-            handleInputChange={handleInputChange}
-            renderFlagValue={renderFlagValue}
-          />
+          <div className="lg:w-full">
+            <TableQuestions
+              questions={allQuestions}
+              flags={flagsEPQR}
+              inputRefs={inputRefs}
+              invalidInputs={invalidInputs}
+              handleInputChange={handleInputChange}
+              renderFlagValue={renderFlagValue}
+            />
+          </div>
 
-          <div className="w-[600px]">
+          <div className="text-center">
             {hasInvalidInputs || age.length < 2 ? (
-              <div className="text-red-500 py-6 font-bold text-xl text-center">
+              <div className="text-red-500 py-6 font-bold text-xl">
                 Formularz zawiera nieprawidłowe wartości lub podany wiek jest
                 nieprawidłowy
               </div>
@@ -211,7 +213,7 @@ const EpqrTab: React.FC = () => {
             </button>
           </div>
         </div>
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-8 pt-12 xl:pt-0">
           <div>
             Normy stenowe - mężczyźni
             <EpqrTableStens data={stensMenEPQR} />

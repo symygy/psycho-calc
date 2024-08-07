@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { flagsCISS, stenCissObj, stensCISS, stensMenEPQR } from "../lib/flags";
+import { flagsCISS, stenCissObj, stensCISS } from "../lib/flags";
 import TableQuestions from "./TableQuestions";
 import CissResults from "./CissResults";
 import CissTableStens from "./CissTableStens";
@@ -156,7 +156,7 @@ const CissTab = () => {
 
   return (
     <>
-      <div className="flex justify-between">
+      <div className="flex justify-around flex-wrap">
         <div className="flex flex-col gap-4">
           <div className="bg-white sticky top-0 z-10 flex justify-center">
             <div className="pb-8">
@@ -184,9 +184,9 @@ const CissTab = () => {
             renderFlagValue={renderFlagValue}
           />
 
-          <div className="w-[800px]">
+          <div className="text-center">
             {hasInvalidInputs || age.length < 2 ? (
-              <div className="text-red-500 py-6 font-bold text-xl text-center">
+              <div className="text-red-500 py-6 font-bold text-xl">
                 Formularz zawiera nieprawidłowe wartości lub podany wiek jest
                 nieprawidłowy
               </div>
@@ -198,7 +198,8 @@ const CissTab = () => {
             </button>
           </div>
         </div>
-        <div className="flex flex-col gap-10">
+
+        <div className="flex flex-col gap-10 pt-12 xl:pt-0">
           <div>
             Normy stenowe dla osób w wieku 16-24 lat
             <CissTableStens data={stensCISS.tab1} age={{ ge: 16, le: 24 }} />

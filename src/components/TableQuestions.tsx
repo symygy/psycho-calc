@@ -29,7 +29,7 @@ const TableQuestions = ({
   };
 
   return (
-    <table className="table">
+    <table className="table md:w-full">
       <thead>
         {isEpqrObject(flags) ? (
           <tr>

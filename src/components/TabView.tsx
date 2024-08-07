@@ -4,46 +4,41 @@ import CissTab from "./CissTab";
 
 const TabView = () => {
   const [tabActive, setTabActive] = useState(0);
+  const activeClass = "bg-base-300 rounded-lg font-bold";
 
   return (
-    <div className="p-4">
-      <div role="tablist" className="tabs tabs-lifted">
-        <a
-          role="tab"
-          className={`tab ${tabActive === 0 ? "tab-active font-bold" : ""}`}
-          onClick={() => setTabActive(0)}
-        >
-          EPQ-R(S)
-        </a>
-        <a
-          role="tab"
-          className={`tab ${tabActive === 1 ? "tab-active font-bold" : ""}`}
-          onClick={() => setTabActive(1)}
-        >
-          CISS
-        </a>
-        <a
-          role="tab"
-          className={`tab ${tabActive === 2 ? "tab-active font-bold" : ""}`}
-          onClick={() => setTabActive(2)}
-        >
-          EPQ-R(long?)
-        </a>
-        <div className="p-10">
-          {tabActive === 0 && (
-            <div>
-              <EpqrTab />
-            </div>
-          )}
-          {tabActive === 1 && (
-            <div>
-              <CissTab />
-            </div>
-          )}
-          {tabActive === 2 && <div>xxxx</div>}
+    <>
+      <div>
+        <div className="navbar bg-base-100">
+          <div className="navbar-center flex">
+            <ul className="menu menu-horizontal px-1">
+              <li
+                className={tabActive === 0 ? activeClass : ""}
+                onClick={() => setTabActive(0)}
+              >
+                <a>EPQ-R</a>
+              </li>
+              <li
+                className={tabActive === 1 ? activeClass : ""}
+                onClick={() => setTabActive(1)}
+              >
+                <a>CISS</a>
+              </li>
+              {/* <li>
+              <a>Item 3</a>
+            </li> */}
+            </ul>
+          </div>
+        </div>
+        <div className="p-2">
+          <div className="p-2">
+            {tabActive === 0 && <EpqrTab />}
+            {tabActive === 1 && <CissTab />}
+            {tabActive === 2 && <div>xxxx</div>}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
